@@ -20,8 +20,8 @@ def check_street(streetName):
 #function for checking if street to be changesd exits or not
 def can_change(streetName):
 
-    for q in main_list:
-        if q == streetName:
+    
+        if streetName in main_list:
             return True
         else:
 
@@ -76,26 +76,18 @@ def add_street(GPSlocation,streetName):
     
 #function for changing a street        
 def change_street(GPSlocation,streetName):
-    check_change=can_change(streetName)
-    check=check_street(streetName)
-    if check==True:
-        if check_change==True:
-             if(check_parenthesis(GPSlocation)):
-                GPSlocation2=re.sub(' +','',GPSlocation)
-                GPSlocation2=re.sub('\)\(',') ( ',GPSlocation2)
-                GPSlocation2=re.sub('\( ','(',GPSlocation2)
-                GPSlocation2=GPSlocation.split(' ')  
-                if all(is_vertex_valid(i) for i in streetName):
-                    main_list[streetName] = GPSlocation2
-                else:
-                     print "enter vertices in a valid format."
-                    
-             else:
-               print "Unbalanced parenthesis"
+
+        if(check_parenthesis(GPSlocation)):
+            GPSlocation1=re.sub(' +','',GPSlocation)
+            GPSlocation1=re.sub('\)\(',') ( ',GPSlocation1)
+            GPSlocation1=re.sub('\( ','(',GPSlocation1)
+            GPSlocation1=GPSlocation1.split(' ')
+            if all(is_vertex_valid(i) for i in GPSlocation1):
+                 main_list[streetName] = GPSlocation1
+            else:
+                print "enter vertices in a valid format."
         else:
-            print"Street does not exist."
-    else:
-        print"Please enter street in valid format."
+             print "unbalanced parenthesis"
 
  #function for removing a street          
 def remove_street(streetName):
@@ -166,6 +158,7 @@ def graph_formation():
                          if (bool(s >= 0) & bool(s <= 1) & bool(t >= 0) & bool(t <= 1)):
                              X=x1 + (t * A)
                              Y=y1 + (t * B)
+
                              X = float("{0:.2f}".format(X))
                              Y = float("{0:.2f}".format(Y))
                              new_vertex="(" + str(X) + "," +str(Y) + ")"                            
@@ -298,6 +291,7 @@ def main():
     while True:
         coordinates=sys.stdin.readline()
         coordinates=coordinates.replace('\n','')
+        #coordinates=raw_input()
         if(coordinates ==''):
             break
         elif(coordinates[0]=='r'):
@@ -327,12 +321,11 @@ def main():
             
         elif command == 'c':
             check_change=can_change(streetName)
-            check=check_street(streetName)
+            
             if check_change==True:
-                if check==True:
+                
                     change_street(GPSlocation,streetName)
-                else:
-                    print "Enter street in valid format."
+              
             else:
                  print"Street cannot be changed"
          
