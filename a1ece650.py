@@ -383,10 +383,10 @@ def graph_formation():
 def main():
     
     while True:
-        #coordinates=sys.stdin.readline()
-        #coordinates=coordinates.replace('\n','')
+        coordinates=sys.stdin.readline()
+        coordinates=coordinates.replace('\n','')
         
-        coordinates=raw_input()
+        #coordinates=raw_input()
         if(coordinates ==''):
             break
         elif(coordinates[0]=='r'):
