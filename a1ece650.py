@@ -70,9 +70,9 @@ def add_street(GPSlocation,streetName):
             if all(is_vertex_valid(i) for i in GPSlocation1):
                  main_list[streetName] = GPSlocation1
             else:
-                print "enter vertices in a valid format."
+                print "Error:enter vertices in a valid format."
         else:
-             print "unbalanced parenthesis"
+             print "Error:unbalanced parenthesis"
     
 #function for changing a street        
 def change_street(GPSlocation,streetName):
@@ -85,9 +85,9 @@ def change_street(GPSlocation,streetName):
             if all(is_vertex_valid(i) for i in GPSlocation1):
                  main_list[streetName] = GPSlocation1
             else:
-                print "enter vertices in a valid format."
+                print "Error:enter vertices in a valid format."
         else:
-             print "unbalanced parenthesis"
+             print "Error:unbalanced parenthesis"
 
  #function for removing a street          
 def remove_street(streetName):
@@ -250,7 +250,7 @@ def graph_formation():
              q=1
                                  
              
-    print "Vertices = {"
+    print "V = {"
     for x,y in graph_vertices.items():
         print x,": ",y 
     print "}"
@@ -374,7 +374,7 @@ def graph_formation():
     
     
     
-    print "Edges ={"
+    print "E ={"
     for u in graph_GPSedges:
         print u
     print "}"
@@ -415,9 +415,9 @@ def main():
                     if check_change==False:
                         add_street(GPSlocation,streetName)
                     else:
-                        print "Street already exists."
+                        print "Error:Street already exists."
                 else:
-                    print "Enter street in valid format."
+                    print "Error:Enter street in valid format."
             except UnboundLocalError:
                  sys.stderr.write("Error: " + "Please enter correct input" + "\n")
                  
@@ -431,7 +431,7 @@ def main():
                     change_street(GPSlocation,streetName)
               
                 else:
-                    print"Street cannot be changed"
+                    print"Error:Street cannot be changed"
             except UnboundLocalError:
                  sys.stderr.write("Error: " + "Please enter correct input" + "\n")
                  
