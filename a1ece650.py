@@ -70,9 +70,9 @@ def add_street(GPSlocation,streetName):
             if all(is_vertex_valid(i) for i in GPSlocation1):
                  main_list[streetName] = GPSlocation1
             else:
-                print "Error:enter vertices in a valid format."
+                print "Error: enter vertices in a valid format."
         else:
-             print "Error:Incorrect input format-unbalanced parenthesis"
+             print "Error: Incorrect input format-unbalanced parenthesis"
     
 #function for changing a street        
 def change_street(GPSlocation,streetName):
@@ -85,9 +85,9 @@ def change_street(GPSlocation,streetName):
             if all(is_vertex_valid(i) for i in GPSlocation1):
                  main_list[streetName] = GPSlocation1
             else:
-                print "Error:enter vertices in a valid format."
+                print "Error: enter vertices in a valid format."
         else:
-             print "Error:Incorrect input format-unbalanced parenthesis"
+             print "Error: Incorrect input format-unbalanced parenthesis"
 
  #function for removing a street          
 def remove_street(streetName):
@@ -415,9 +415,9 @@ def main():
                     if check_change==False:
                         add_street(GPSlocation,streetName)
                     else:
-                        print "Error:Street currently exists."
+                        print "Error: Street currently exists."
                 else:
-                    print "Error:Enter street in valid format."
+                    print "Error: Enter street in valid format."
             except UnboundLocalError:
                  sys.stderr.write("Error: " + "Please enter correct input" + "\n")
                  
@@ -431,7 +431,7 @@ def main():
                     change_street(GPSlocation,streetName)
               
                 else:
-                    print"Error:'c' or 'r' specified for a street that does not exist."
+                    print"Error: 'c' or 'r' specified for a street that does not exist."
             except UnboundLocalError:
                  sys.stderr.write("Error: " + "Please enter correct input" + "\n")
                  
