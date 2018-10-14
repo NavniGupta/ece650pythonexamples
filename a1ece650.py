@@ -8,7 +8,7 @@ Created on Tue Sep  27 13:37:27 2018
 
 import sys
 import re
-
+import ast
 
 main_list = dict()
 #function for checking street name is in valid format or not
@@ -53,10 +53,10 @@ def is_vertex_valid(GPSlocation):
     return result   
    
 #function for spiliting coordinate to get value of 'x' and 'y'    
-def split_pair(pair):
+'''def ast.literal_eval(pair):
     v1=re.split('\(|\)',pair)
     v1,w1=re.split(',',str(v1[1]))
-    return v1,w1
+    return v1,w1'''
 
 #function for adding a street
 def add_street(GPSlocation,streetName):
@@ -72,7 +72,7 @@ def add_street(GPSlocation,streetName):
             else:
                 print "Error:enter vertices in a valid format."
         else:
-             print "Error:unbalanced parenthesis"
+             print "Error:Incorrect input format-unbalanced parenthesis"
     
 #function for changing a street        
 def change_street(GPSlocation,streetName):
@@ -87,7 +87,7 @@ def change_street(GPSlocation,streetName):
             else:
                 print "Error:enter vertices in a valid format."
         else:
-             print "Error:unbalanced parenthesis"
+             print "Error:Incorrect input format-unbalanced parenthesis"
 
  #function for removing a street          
 def remove_street(streetName):
@@ -140,10 +140,10 @@ def graph_formation():
                       p3=vertices[j][r-1]
                       p4=vertices[j][r]
                       
-                      x1,y1 = split_pair(p1)
-                      x2,y2 = split_pair(p2)
-                      x3,y3 = split_pair(p3)
-                      x4,y4 = split_pair(p4)
+                      x1,y1 = ast.literal_eval(p1)
+                      x2,y2 = ast.literal_eval(p2)
+                      x3,y3 = ast.literal_eval(p3)
+                      x4,y4 = ast.literal_eval(p4)
                       x1=float(x1);x2=float(x2); x3=float(x3);x4=float(x4);
                       y1=float(y1);y2=float(y2);y3=float(y3);y4=float(y4);
                       p1="(" + str(x1) + "," +str(y1) + ")"
@@ -300,7 +300,7 @@ def graph_formation():
                         pair=graph_GPSedges[n]
                         pair=re.sub('<','(',pair)
                         pair=re.sub('>',')',pair)
-                        y,z=split_pair(pair)
+                        y,z=ast.literal_eval(pair)
                         distinct_x.append(y)
                         distinct_set=set(distinct_x)
                         distinct_x=list(distinct_set)
@@ -316,8 +316,8 @@ def graph_formation():
         edge = graph_GPSedges[b]
         edge = re.sub('<', '(', edge)
         edge = re.sub('>', ')', edge)
-        pair1,pair2 = split_pair(edge)
-        pair1,pair2=int(pair1),int(pair2)
+        pair1,pair2 = ast.literal_eval(edge)
+        #pair1,pair2=int(pair1),int(pair2)
         if(pair1==pair2):
             delete="<" + str(pair1) + "," + str(pair2) + ">"
             repetitive_edges.append(delete)
@@ -328,17 +328,17 @@ def graph_formation():
             vertex2=graph_vertices[pair2]
 
             
-            v_x1,v_y1=split_pair(vertex1)
-            v_x2,v_y2=split_pair(vertex2)
+            v_x1,v_y1=ast.literal_eval(vertex1)
+            v_x2,v_y2=ast.literal_eval(vertex2)
             
-            y,z=split_pair(pair)
+            y,z=ast.literal_eval(pair)
             min_x1 = min(v_x1, v_x2)
             max_x1 = max(v_x1, v_x2)
             min_y1 = min(v_y1, v_y2)
             max_y1 = max(v_y1, v_y2)
             pair_check=graph_vertices[c]
 
-            check_x,check_y=split_pair(pair_check)
+            check_x,check_y=ast.literal_eval(pair_check)
             if((bool(check_x!=min_x1) & bool( check_x !=max_x1)) | ((bool(check_y!=min_y1) & bool(check_y!=max_y1)))):
                 if(bool(check_x <= max_x1) & bool(check_x >= min_x1)):
                     if(bool(check_y <= max_y1) & bool(check_y >= min_y1)):
@@ -357,11 +357,11 @@ def graph_formation():
             edge_new1 = graph_GPSedges[g]
             edge_new1 = re.sub('<', '(', edge_new1)
             edge_new1 = re.sub('>', ')', edge_new1)
-            pair1,pair2 = split_pair(edge_new1)
+            pair1,pair2 = ast.literal_eval(edge_new1)
             edge_new2 = graph_GPSedges[g1]
             edge_new2 = re.sub('<', '(', edge_new2)
             edge_new2 = re.sub('>', ')', edge_new2)
-            pair3,pair4 = split_pair(edge_new2)
+            pair3,pair4 = ast.literal_eval(edge_new2)
             if(pair1==pair4 and pair2==pair3):
                 delete="<" + str(pair1) + "," + str(pair2) + ">"
                 repetitive_edges1.append(delete)
@@ -415,7 +415,7 @@ def main():
                     if check_change==False:
                         add_street(GPSlocation,streetName)
                     else:
-                        print "Error:Street already exists."
+                        print "Error:Street currently exists."
                 else:
                     print "Error:Enter street in valid format."
             except UnboundLocalError:
@@ -431,7 +431,7 @@ def main():
                     change_street(GPSlocation,streetName)
               
                 else:
-                    print"Error:Street cannot be changed"
+                    print"Error:'c' or 'r' specified for a street that does not exist."
             except UnboundLocalError:
                  sys.stderr.write("Error: " + "Please enter correct input" + "\n")
                  
